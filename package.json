@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "prepare": "husky",
-    "format": "prettier . --write"
+    "format": "prettier . --write",
+    "openapi-generate": "openapi-typescript ./api/openapi.yml --output ./src/generated/apiSchema.generated.d.ts"
   },
   "dependencies": {
     "clsx": "^2.1.1",
