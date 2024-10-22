@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky",
+    "format": "prettier . --write"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -28,5 +30,8 @@
     "openapi-typescript": "^7.4.1",
     "prettier": "^3.3.3",
     "typescript": "^5.5.4"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
