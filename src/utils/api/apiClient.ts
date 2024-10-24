@@ -54,7 +54,7 @@ export const createApiClient = <P extends ApiPath, M extends HttpMethodOfPath<P>
   });
 
   const sendRequest = async (): Promise<ApiResponse<P, M>> => {
-    const token = getSession();
+    const token = await getSession();
 
     const response = await fetch(API_BASE_URL + fullPath, {
       method,

@@ -33,5 +33,5 @@ export type GetValueRecursive<T extends object, K extends PropertyKey[]> = K ext
     ? T[First] extends object
       ? GetValueRecursive<T[First], Rest>
       : T[First]
-    : undefined
+    : never
   : T;
