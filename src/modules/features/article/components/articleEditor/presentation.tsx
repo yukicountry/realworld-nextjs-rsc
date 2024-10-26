@@ -1,28 +1,28 @@
 import { Button } from "@/modules/common/components/button";
 import { ErrorMessage } from "@/modules/common/components/errorMessage";
 import { KeyboardEventHandler } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
 import { Tag } from "../tag";
-import { FormState, Inputs } from "./types";
 import { Article } from "@/utils/types/models";
+import { getInputProps, getTextareaProps, SubmissionResult, useForm } from "@conform-to/react";
+import { inputsSchema } from "./types";
+import { parseWithZod } from "@conform-to/zod";
 
 type Props = {
   defaultValues?: Article;
-  formState?: FormState;
-  onSubmit?: (inputs: Inputs) => void;
+  action?: (formData: FormData) => void;
   isPending?: boolean;
+  result?: SubmissionResult<string[]>;
 };
 
-export const ArticleEditor = ({ defaultValues, formState, onSubmit, isPending }: Props) => {
-  const { register, control, handleSubmit, getValues, resetField } = useForm<Inputs>({
-    defaultValues: {
-      ...defaultValues,
-      tagList: defaultValues?.tagList.map((tag) => ({ value: tag })),
+export const ArticleEditor = ({ defaultValues, result, action, isPending }: Props) => {
+  const [form, fields] = useForm({
+    lastResult: result,
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: inputsSchema });
     },
-  });
-  const { fields, append, remove } = useFieldArray({
-    control,
-    name: "tagList",
+    defaultValue: { ...defaultValues },
+    shouldValidate: "onBlur",
+    shouldRevalidate: "onInput",
   });
 
   const onTagFormKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
@@ -31,64 +31,69 @@ export const ArticleEditor = ({ defaultValues, formState, onSubmit, isPending }:
         // prevent form submit
         event.preventDefault();
 
-        const tag = getValues("tag");
-
-        if (tag === "") {
+        const tag = fields.tag.value;
+        if (!tag) {
           return;
         }
-
-        append({ value: tag });
-        resetField("tag");
+        form.insert({ name: fields.tagList.name, defaultValue: tag });
       default:
         return;
     }
   };
 
+  const onClickRemoveTag = (index: number) => {
+    form.remove({ name: fields.tagList.name, index });
+  };
+
   return (
     <>
-      <ErrorMessage errors={formState?.errors ?? {}} />
-      <form onSubmit={onSubmit && handleSubmit(onSubmit)}>
-        <input type="hidden" {...register("slug")} />
+      <ErrorMessage errors={form.allErrors} />
+      <form id={form.id} action={action} onSubmit={form.onSubmit} noValidate={true}>
+        <input {...getInputProps(fields.slug, { type: "hidden" })} key={fields.slug.key} />
         <fieldset>
           <fieldset className="form-group">
             <input
-              type="text"
-              className="form-control form-control-lg"
+              {...getInputProps(fields.title, { type: "text" })}
               placeholder="Article Title"
-              {...register("title")}
+              className="form-control form-control-lg"
             />
           </fieldset>
           <fieldset className="form-group">
             <input
-              type="text"
-              className="form-control"
+              {...getInputProps(fields.description, { type: "text" })}
               placeholder="What's this article about?"
-              {...register("description")}
+              className="form-control"
             />
           </fieldset>
           <fieldset className="form-group">
             <textarea
-              className="form-control"
+              {...getTextareaProps(fields.body)}
               rows={8}
               placeholder="Write your article (in markdown)"
-              {...register("body")}
+              className="form-control"
             />
           </fieldset>
           <fieldset className="form-group">
             <input
-              type="text"
-              className="form-control"
+              {...getInputProps(fields.tag, { type: "text" })}
               placeholder="Enter tags"
               onKeyDown={onTagFormKeyDown}
-              {...register("tag")}
+              className="form-control"
             />
             <ul className="tag-list">
-              {fields.map((field, index) => (
-                <li key={index}>
-                  <input type="hidden" {...register(`tagList.${index}.value`)} />
-                  <Tag as="span" variant="filled" onClick={() => remove(index)}>
-                    <i className="ion-close-round" />
-                    {field.value}
+              {fields.tagList.getFieldList().map((tagField, index) => (
+                <li key={tagField.key}>
+                  <Tag as="span" variant="filled">
+                    <button onClick={() => onClickRemoveTag(index)}>
+                      <i className="ion-close-round" />
+                    </button>
+                    <input
+                      type="text"
+                      name={tagField.name}
+                      value={tagField.value}
+                      style={{ background: "none" }}
+                      readOnly={true}
+                    />
                   </Tag>
                 </li>
               ))}

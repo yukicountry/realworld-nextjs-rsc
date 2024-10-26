@@ -1,21 +1,12 @@
-export type Inputs = {
-  slug: string;
-  title: string;
-  description: string;
-  body: string;
-  tagList: { value: string }[];
-  tag: string;
-};
+import { z } from "zod";
 
-export type FormState = {
-  errors: {
-    title?: string[];
-    description?: string[];
-    body?: string[];
-    tagList?: string[];
-  };
-};
+export const inputsSchema = z.object({
+  slug: z.string().optional(),
+  title: z.string(),
+  description: z.string(),
+  body: z.string(),
+  tagList: z.array(z.string()),
+  tag: z.string().optional(),
+});
 
-export const initialFormState: FormState = {
-  errors: {},
-};
+export type Inputs = z.infer<typeof inputsSchema>;
