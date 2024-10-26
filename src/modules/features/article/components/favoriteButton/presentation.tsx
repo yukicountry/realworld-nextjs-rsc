@@ -1,5 +1,5 @@
 import { Button } from "@/modules/common/components/button";
-import { MouseEventHandler } from "react";
+import styles from "./presentation.module.css";
 
 type Props = {
   favorited: boolean;
@@ -23,7 +23,7 @@ export const FavoriteButton = ({ favorited, favoritesCount, action, disabled, sh
   );
 
   return (
-    <form action={action}>
+    <form action={action} className={styles["form"]}>
       <Button component="button" variant={favorited ? "filled" : "outline"} disabled={disabled} className={className}>
         {content}
       </Button>

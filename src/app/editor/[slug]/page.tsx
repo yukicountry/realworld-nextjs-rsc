@@ -3,13 +3,13 @@ import { fetchArticle } from "@/modules/features/article/fetch/fetchArticle";
 import { Suspense } from "react";
 
 type Props = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
-const Page = ({ params }: Props) => {
-  const article = fetchArticle(params.slug);
+const Page = async ({ params }: Props) => {
+  const article = fetchArticle((await params).slug);
 
   return (
     <div className="editor-page">
