@@ -12,17 +12,13 @@ type Props = {
 };
 
 export const FollowButton = ({ username, following, color }: Props) => {
-  const [state, dispatch, isPending] = useActionState(followAction, { following });
-
-  const handleClickFollow = () => {
-    dispatch(username);
-  };
+  const [state, action, isPending] = useActionState(followAction, { following });
 
   return (
     <FollowButtonPresentation
       username={username}
-      {...state}
-      handleClickFollow={handleClickFollow}
+      following={state.following}
+      action={() => action(username)}
       isPending={isPending}
       color={color}
     />

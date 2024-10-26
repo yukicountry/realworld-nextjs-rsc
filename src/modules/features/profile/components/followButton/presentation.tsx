@@ -5,22 +5,23 @@ type Props = {
   username: string;
   color?: Color;
   following?: boolean;
-  handleClickFollow?: MouseEventHandler<HTMLButtonElement>;
+  action?: () => void;
   isPending?: boolean;
 };
 
-export const FollowButton = ({ username, color, following, handleClickFollow, isPending }: Props) => {
+export const FollowButton = ({ username, color, following, action, isPending }: Props) => {
   return (
-    <Button
-      component="button"
-      type="submit"
-      className="action-btn"
-      color={color}
-      variant={following ? "filled" : "outline"}
-      onClick={handleClickFollow}
-      disabled={isPending}
-    >
-      <i className="ion-plus-round"></i> {following ? "Unfollow" : "Follow"} {username}
-    </Button>
+    <form action={action}>
+      <Button
+        component="button"
+        type="submit"
+        className="action-btn"
+        color={color}
+        variant={following ? "filled" : "outline"}
+        disabled={isPending}
+      >
+        <i className="ion-plus-round"></i> {following ? "Unfollow" : "Follow"} {username}
+      </Button>
+    </form>
   );
 };

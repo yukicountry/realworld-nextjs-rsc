@@ -13,19 +13,15 @@ type Props = {
 };
 
 export const FavoriteButton = ({ slug, favorited, favoritesCount, showMessage, className }: Props) => {
-  const [state, dispatch, isPending] = useActionState(favoriteAction, {
+  const [state, action, isPending] = useActionState(favoriteAction, {
     favorited,
     favoritesCount,
   });
 
-  const handleClickFavorite = () => {
-    dispatch(slug);
-  };
-
   return (
     <FavoriteButtonPresentation
       {...state}
-      handleClickFavorite={handleClickFavorite}
+      action={() => action(slug)}
       disabled={isPending}
       showMessage={showMessage}
       className={className}
