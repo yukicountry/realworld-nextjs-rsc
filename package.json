@@ -12,11 +12,13 @@
     "openapi-generate": "openapi-typescript ./api/openapi.yml --output ./src/generated/apiSchema.generated.d.ts"
   },
   "dependencies": {
+    "@conform-to/react": "^1.2.2",
+    "@conform-to/zod": "^1.2.2",
     "clsx": "^2.1.1",
     "ionicons": "^2.0.1",
     "next": "15.0.0",
-    "react": "19.0.0-rc-65a56d0e-20241020",
-    "react-dom": "19.0.0-rc-65a56d0e-20241020",
+    "react": "^18.3",
+    "react-dom": "^18.3",
     "zod": "^3.23.8"
   },
   "devDependencies": {
