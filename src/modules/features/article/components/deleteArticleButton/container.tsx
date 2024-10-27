@@ -19,5 +19,5 @@ export const DeleteArticleButton = ({ slug }: Props) => {
     dispatch(slug);
   };
 
-  return <DeleteArticleButtonPresentation handleClickDelete={handleClickDelete} />;
+  return <DeleteArticleButtonPresentation handleClickDelete={handleClickDelete} isPending={isPending} />;
 };

@@ -22,8 +22,8 @@ type TagPropsAsListItem = CommonTagProps &
     as: "li";
   };
 
-const TagAsListItem = ({ children, variant = "filled", className, as, ...rest }: TagPropsAsListItem) => (
-  <li className={clsx("tag-default tag-pill", variantClassNameMaps[variant])} {...rest}>
+const TagAsListItem = ({ children, variant = "filled", className, ...rest }: TagPropsAsListItem) => (
+  <li className={clsx("tag-default tag-pill", className, variantClassNameMaps[variant])} {...rest}>
     {children}
   </li>
 );
@@ -36,8 +36,8 @@ type TagPropsAsAnchor = CommonTagProps &
     as: "a";
   };
 
-const TagAsAnchor = ({ children, variant = "filled", href = "", className, as, ...rest }: TagPropsAsAnchor) => (
-  <Link href={href} className={clsx("tag-default tag-pill", variantClassNameMaps[variant])} {...rest}>
+const TagAsAnchor = ({ children, variant = "filled", href = "", className, ...rest }: TagPropsAsAnchor) => (
+  <Link href={href} className={clsx("tag-default tag-pill", className, variantClassNameMaps[variant])} {...rest}>
     {children}
   </Link>
 );
@@ -50,8 +50,8 @@ type TagPropsAsSpan = CommonTagProps &
     as: "span";
   };
 
-const TagAsSpan = ({ children, variant = "filled", className, as, ...rest }: TagPropsAsSpan) => (
-  <span className={clsx("tag-default tag-pill", variantClassNameMaps[variant])} {...rest}>
+const TagAsSpan = ({ children, variant = "filled", className, ...rest }: TagPropsAsSpan) => (
+  <span className={clsx("tag-default tag-pill", className, variantClassNameMaps[variant])} {...rest}>
     {children}
   </span>
 );

@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/no-empty-object-type: off */
 export type FilterRequired<T extends Record<PropertyKey, unknown>> = {
   [P in keyof T as {} extends Pick<T, P> ? never : P]: T[P];
 };

@@ -22,7 +22,7 @@ export const RegistrationForm = ({ result, action, isPending }: Props) => {
 
   return (
     <>
-      <ErrorMessage errors={form.allErrors} />
+      <ErrorMessage messages={form.errors} />
       <form id={form.id} action={action} onSubmit={form.onSubmit} noValidate={true}>
         <fieldset className="form-group">
           <input
@@ -30,6 +30,7 @@ export const RegistrationForm = ({ result, action, isPending }: Props) => {
             placeholder="Username"
             className="form-control form-control-lg"
           />
+          <ErrorMessage messages={fields.username.errors} />
         </fieldset>
         <fieldset className="form-group">
           <input
@@ -37,6 +38,7 @@ export const RegistrationForm = ({ result, action, isPending }: Props) => {
             placeholder="Email"
             className="form-control form-control-lg"
           />
+          <ErrorMessage messages={fields.email.errors} />
         </fieldset>
         <fieldset className="form-group">
           <input
@@ -44,6 +46,7 @@ export const RegistrationForm = ({ result, action, isPending }: Props) => {
             placeholder="Password"
             className="form-control form-control-lg"
           />
+          <ErrorMessage messages={fields.password.errors} />
         </fieldset>
         <Button
           component="button"

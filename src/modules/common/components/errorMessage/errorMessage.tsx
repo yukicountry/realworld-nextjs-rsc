@@ -1,23 +1,14 @@
 type Props = {
-  errors: Record<string, string[]>;
+  messages?: string[];
 };
 
-export const ErrorMessage = (props: Props) => {
-  const errors = Object.entries(props.errors)
-    .map(([key, value]) => {
-      if (value.length < 1) {
-        return undefined;
-      }
-
-      return `${key} ${value.at(0)}`;
-    })
-    .filter((x) => x != null); // exclude undefined
-
+export const ErrorMessage = ({ messages }: Props) => {
   return (
-    errors.length > 0 && (
+    messages &&
+    messages.length > 0 && (
       <ul className="error-messages" aria-live="polite">
-        {errors.map((error, index) => (
-          <li key={index}>{error}</li>
+        {messages.map((message, index) => (
+          <li key={index}>{message}</li>
         ))}
       </ul>
     )

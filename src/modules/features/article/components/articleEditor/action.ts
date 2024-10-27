@@ -1,9 +1,9 @@
 "use server";
 
 import { createApiClient } from "@/utils/api/apiClient";
-import { redirect } from "next/navigation";
-import { Inputs, inputsSchema } from "./types";
 import { parseWithZod } from "@conform-to/zod";
+import { redirect } from "next/navigation";
+import { inputsSchema } from "./types";
 
 export const createArticleAction = async (_prevState: unknown, formData: FormData) => {
   const submission = parseWithZod(formData, { schema: inputsSchema });

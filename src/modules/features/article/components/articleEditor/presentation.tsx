@@ -47,7 +47,7 @@ export const ArticleEditor = ({ defaultValues, result, action, isPending }: Prop
 
   return (
     <>
-      <ErrorMessage errors={form.allErrors} />
+      <ErrorMessage messages={form.errors} />
       <form id={form.id} action={action} onSubmit={form.onSubmit} noValidate={true}>
         <input {...getInputProps(fields.slug, { type: "hidden" })} key={fields.slug.key} />
         <fieldset>

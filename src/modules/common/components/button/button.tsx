@@ -64,7 +64,6 @@ type ButtonProps = ComponentPropsWithoutRef<"button"> &
   };
 
 const ButtonAsButtonTag = ({
-  component,
   className,
   children,
   size = DEFAULT_SIZE,
@@ -97,7 +96,6 @@ type AnchorProps = ComponentPropsWithoutRef<"a"> &
   };
 
 const ButtonAsAnchorTag = ({
-  component,
   className,
   children,
   size = DEFAULT_SIZE,

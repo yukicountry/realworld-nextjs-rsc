@@ -9,7 +9,7 @@ type Props = {
   isPending?: boolean;
 };
 
-export const CommentCard = ({ comment, showTrash, deleteCommentAction, isPending }: Props) => {
+export const CommentCard = ({ comment, showTrash, deleteCommentAction }: Props) => {
   return (
     <div className="card">
       <div className="card-block">

@@ -125,8 +125,6 @@ export const fetchGlobalArticles = async (page: number) => {
 
   const response = await client.sendRequest();
 
-  console.log(response);
-
   if (response.result === "success") {
     return {
       articles: response.data.articles.map((article) => ArticlePreview.parse(article)),
