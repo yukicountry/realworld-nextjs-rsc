@@ -30,21 +30,29 @@ export const SettingsForm = ({ user, action, isPending, result }: Props) => {
         <fieldset>
           <fieldset className="form-group">
             <input
-              {...getInputProps(fields.image, { type: "text" })}
+              type="text"
+              key={fields.image.key}
+              name={fields.image.name}
+              defaultValue={fields.image.initialValue}
               placeholder="URL of profile picture"
               className="form-control"
             />
           </fieldset>
           <fieldset className="form-group">
             <input
-              {...getInputProps(fields.username, { type: "text" })}
+              type="text"
+              key={fields.username.key}
+              name={fields.username.name}
+              defaultValue={fields.username.initialValue}
               placeholder="Your Name"
               className="form-control form-control-lg"
             />
           </fieldset>
           <fieldset className="form-group">
             <textarea
-              {...getTextareaProps(fields.bio)}
+              key={fields.bio.key}
+              name={fields.bio.name}
+              defaultValue={fields.bio.initialValue}
               placeholder="Short bio about you"
               className="form-control form-control-lg"
               rows={8}
@@ -52,14 +60,20 @@ export const SettingsForm = ({ user, action, isPending, result }: Props) => {
           </fieldset>
           <fieldset className="form-group">
             <input
-              {...getInputProps(fields.email, { type: "email" })}
+              type="email"
+              key={fields.email.key}
+              name={fields.email.name}
+              defaultValue={fields.email.initialValue}
               placeholder="Email"
               className="form-control form-control-lg"
             />
           </fieldset>
           <fieldset className="form-group">
             <input
-              {...getInputProps(fields.password, { type: "password" })}
+              type="password"
+              key={fields.password.key}
+              name={fields.password.name}
+              defaultValue={fields.password.initialValue}
               placeholder="New Password"
               autoComplete="new-password"
               className="form-control form-control-lg"

@@ -12,6 +12,8 @@ export const postCommentAction = async (
 ): Promise<SubmissionResult<string[]>> => {
   const submission = parseWithZod(formData, { schema: inputsSchema });
 
+  console.log(submission);
+
   if (submission.status !== "success") {
     return submission.reply();
   }

@@ -1,11 +1,12 @@
 import { Button } from "@/modules/common/components/button";
 import { ErrorMessage } from "@/modules/common/components/errorMessage";
+import { Article } from "@/utils/types/models";
+import { SubmissionResult, useForm } from "@conform-to/react";
+import { parseWithZod } from "@conform-to/zod";
 import { KeyboardEventHandler } from "react";
 import { Tag } from "../tag";
-import { Article } from "@/utils/types/models";
-import { getInputProps, getTextareaProps, SubmissionResult, useForm } from "@conform-to/react";
+import styles from "./presentation.module.css";
 import { inputsSchema } from "./types";
-import { parseWithZod } from "@conform-to/zod";
 
 type Props = {
   defaultValues?: Article;
@@ -49,25 +50,33 @@ export const ArticleEditor = ({ defaultValues, result, action, isPending }: Prop
     <>
       <ErrorMessage messages={form.errors} />
       <form id={form.id} action={action} onSubmit={form.onSubmit} noValidate={true}>
-        <input {...getInputProps(fields.slug, { type: "hidden" })} key={fields.slug.key} />
+        <input type="hidden" key={fields.slug.key} name={fields.slug.name} defaultValue={fields.slug.initialValue} />
         <fieldset>
           <fieldset className="form-group">
             <input
-              {...getInputProps(fields.title, { type: "text" })}
+              type="text"
+              key={fields.title.key}
+              name={fields.title.name}
+              defaultValue={fields.title.initialValue}
               placeholder="Article Title"
               className="form-control form-control-lg"
             />
           </fieldset>
           <fieldset className="form-group">
             <input
-              {...getInputProps(fields.description, { type: "text" })}
+              type="text"
+              key={fields.description.key}
+              name={fields.description.name}
+              defaultValue={fields.description.initialValue}
               placeholder="What's this article about?"
               className="form-control"
             />
           </fieldset>
           <fieldset className="form-group">
             <textarea
-              {...getTextareaProps(fields.body)}
+              key={fields.body.key}
+              name={fields.body.name}
+              defaultValue={fields.body.initialValue}
               rows={8}
               placeholder="Write your article (in markdown)"
               className="form-control"
@@ -75,7 +84,10 @@ export const ArticleEditor = ({ defaultValues, result, action, isPending }: Prop
           </fieldset>
           <fieldset className="form-group">
             <input
-              {...getInputProps(fields.tag, { type: "text" })}
+              type="text"
+              key={fields.tag.key}
+              name={fields.tag.name}
+              defaultValue={fields.tag.initialValue}
               placeholder="Enter tags"
               onKeyDown={onTagFormKeyDown}
               className="form-control"
@@ -83,17 +95,12 @@ export const ArticleEditor = ({ defaultValues, result, action, isPending }: Prop
             <ul className="tag-list">
               {fields.tagList.getFieldList().map((tagField, index) => (
                 <li key={tagField.key}>
-                  <Tag as="span" variant="filled">
+                  <Tag as="span" variant="filled" className={styles["tag-form"]}>
+                    <input type="hidden" name={tagField.name} value={tagField.value} />
                     <button onClick={() => onClickRemoveTag(index)}>
                       <i className="ion-close-round" />
                     </button>
-                    <input
-                      type="text"
-                      name={tagField.name}
-                      value={tagField.value}
-                      style={{ background: "none" }}
-                      readOnly={true}
-                    />
+                    {tagField.value}
                   </Tag>
                 </li>
               ))}

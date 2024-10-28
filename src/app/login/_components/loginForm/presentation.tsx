@@ -17,7 +17,7 @@ export const LoginForm = ({ result, action, isPending }: Props) => {
       return parseWithZod(formData, { schema: inputsSchema });
     },
     shouldValidate: "onBlur",
-    shouldRevalidate: "onInput",
+    shouldRevalidate: "onBlur",
   });
 
   return (
@@ -26,9 +26,10 @@ export const LoginForm = ({ result, action, isPending }: Props) => {
       <form id={form.id} onSubmit={form.onSubmit} action={action} noValidate={true}>
         <fieldset className="form-group">
           <input
-            {...getInputProps(fields.email, {
-              type: "email",
-            })}
+            type="email"
+            key={fields.email.key}
+            name={fields.email.name}
+            defaultValue={fields.email.initialValue}
             placeholder="Email"
             className="form-control form-control-lg"
           />
@@ -36,9 +37,10 @@ export const LoginForm = ({ result, action, isPending }: Props) => {
         </fieldset>
         <fieldset className="form-group">
           <input
-            {...getInputProps(fields.password, {
-              type: "password",
-            })}
+            type="password"
+            key={fields.password.key}
+            name={fields.password.name}
+            defaultValue={fields.password.initialValue}
             placeholder="Password"
             className="form-control form-control-lg"
           />

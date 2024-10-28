@@ -26,7 +26,10 @@ export const RegistrationForm = ({ result, action, isPending }: Props) => {
       <form id={form.id} action={action} onSubmit={form.onSubmit} noValidate={true}>
         <fieldset className="form-group">
           <input
-            {...getInputProps(fields.username, { type: "text" })}
+            type="text"
+            key={fields.username.key}
+            name={fields.username.name}
+            defaultValue={fields.username.initialValue}
             placeholder="Username"
             className="form-control form-control-lg"
           />
@@ -34,7 +37,10 @@ export const RegistrationForm = ({ result, action, isPending }: Props) => {
         </fieldset>
         <fieldset className="form-group">
           <input
-            {...getInputProps(fields.email, { type: "email" })}
+            type="email"
+            key={fields.email.key}
+            name={fields.email.name}
+            defaultValue={fields.email.initialValue}
             placeholder="Email"
             className="form-control form-control-lg"
           />
@@ -42,9 +48,13 @@ export const RegistrationForm = ({ result, action, isPending }: Props) => {
         </fieldset>
         <fieldset className="form-group">
           <input
-            {...getInputProps(fields.password, { type: "password" })}
+            type="password"
+            key={fields.password.key}
+            name={fields.password.name}
+            defaultValue={fields.password.initialValue}
             placeholder="Password"
             className="form-control form-control-lg"
+            autoComplete="new-password"
           />
           <ErrorMessage messages={fields.password.errors} />
         </fieldset>

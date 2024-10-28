@@ -32,7 +32,6 @@ export const signInAction = async (_prevState: unknown, formData: FormData) => {
     redirect("/");
   }
 
-  // return submission.reply();
   return submission.reply({
     formErrors: ["Login failed."],
   });

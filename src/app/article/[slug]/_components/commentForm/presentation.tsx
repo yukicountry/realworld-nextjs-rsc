@@ -21,26 +21,30 @@ export const CommentForm = ({ slug, authorImage, result, postCommentAction, isPe
       return parseWithZod(formData, { schema: inputsSchema });
     },
     shouldValidate: "onBlur",
-    shouldRevalidate: "onInput",
+    shouldRevalidate: "onBlur",
   });
 
   return (
-    <form id={form.id} action={postCommentAction} onSubmit={form.onSubmit} className="card comment-form">
-      <input {...getInputProps(fields.slug, { type: "hidden" })} />
-      <div className="card-block">
-        <textarea
-          {...getTextareaProps(fields.body)}
-          placeholder="Write a comment..."
-          rows={3}
-          className="form-control"
-        ></textarea>
-      </div>
-      <div className="card-footer">
-        {authorImage && <img src={authorImage} alt="" className="comment-author-img" />}
-        <Button component="button" type="submit" disabled={isPending}>
-          Post Comment
-        </Button>
-      </div>
-    </form>
+    <>
+      <form id={form.id} action={postCommentAction} onSubmit={form.onSubmit} className="card comment-form">
+        <input type="hidden" key={fields.slug.key} name={fields.slug.name} defaultValue={fields.slug.initialValue} />
+        <div className="card-block">
+          <textarea
+            key={fields.body.key}
+            name={fields.body.name}
+            defaultValue={fields.body.initialValue}
+            placeholder="Write a comment..."
+            rows={3}
+            className="form-control"
+          ></textarea>
+        </div>
+        <div className="card-footer">
+          {authorImage && <img src={authorImage} alt="" className="comment-author-img" />}
+          <Button component="button" type="submit" disabled={isPending}>
+            Post Comment
+          </Button>
+        </div>
+      </form>
+    </>
   );
 };
