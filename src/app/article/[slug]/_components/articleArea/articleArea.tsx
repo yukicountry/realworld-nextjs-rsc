@@ -3,6 +3,7 @@ import { DeleteArticleButton } from "@/modules/features/article/components/delet
 import { FavoriteButton } from "@/modules/features/article/components/favoriteButton";
 import { Tag } from "@/modules/features/article/components/tag";
 import { fetchArticle } from "@/modules/features/article/fetch/fetchArticle";
+import { convertMarkdownToHtml } from "@/modules/features/article/functions";
 import { FollowButton } from "@/modules/features/profile/components/followButton";
 import { Article } from "@/utils/types/models";
 import Link from "next/link";
@@ -32,6 +33,7 @@ const Actions = ({ article }: { article: Article }) => {
 
 export const ArticleArea = async ({ slug, children }: { slug: string; children: ReactNode }) => {
   const article = await fetchArticle(slug);
+  const body = await convertMarkdownToHtml(article.body);
 
   return (
     <div className="article-page">
@@ -45,7 +47,7 @@ export const ArticleArea = async ({ slug, children }: { slug: string; children: 
       <div className="container page">
         <div className="row article-content">
           <div className="col-md-12">
-            <p>{article.body}</p>
+            <div dangerouslySetInnerHTML={{ __html: body }} />
             <ul className="tag-list">
               {article.tagList.map((tag, index) => (
                 <Tag component="li" variant="outline" key={index}>
