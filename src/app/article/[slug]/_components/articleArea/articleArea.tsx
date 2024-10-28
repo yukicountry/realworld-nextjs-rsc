@@ -48,7 +48,7 @@ export const ArticleArea = async ({ slug, children }: { slug: string; children: 
             <p>{article.body}</p>
             <ul className="tag-list">
               {article.tagList.map((tag, index) => (
-                <Tag as="li" variant="outline" key={index}>
+                <Tag component="li" variant="outline" key={index}>
                   {tag}
                 </Tag>
               ))}

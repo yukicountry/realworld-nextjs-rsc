@@ -19,7 +19,7 @@ type CommonTagProps = {
 
 type TagPropsAsListItem = CommonTagProps &
   ComponentPropsWithoutRef<"li"> & {
-    as: "li";
+    component: "li";
   };
 
 const TagAsListItem = ({ children, variant = "filled", className, ...rest }: TagPropsAsListItem) => (
@@ -33,7 +33,7 @@ const TagAsListItem = ({ children, variant = "filled", className, ...rest }: Tag
 
 type TagPropsAsAnchor = CommonTagProps &
   ComponentPropsWithoutRef<"a"> & {
-    as: "a";
+    component: "a";
   };
 
 const TagAsAnchor = ({ children, variant = "filled", href = "", className, ...rest }: TagPropsAsAnchor) => (
@@ -47,7 +47,7 @@ const TagAsAnchor = ({ children, variant = "filled", href = "", className, ...re
 
 type TagPropsAsSpan = CommonTagProps &
   ComponentPropsWithoutRef<"span"> & {
-    as: "span";
+    component: "span";
   };
 
 const TagAsSpan = ({ children, variant = "filled", className, ...rest }: TagPropsAsSpan) => (
@@ -61,7 +61,7 @@ const TagAsSpan = ({ children, variant = "filled", className, ...rest }: TagProp
 export type TagProps = TagPropsAsListItem | TagPropsAsAnchor | TagPropsAsSpan;
 
 export const Tag = (props: TagProps) => {
-  switch (props.as) {
+  switch (props.component) {
     case "li":
       return <TagAsListItem {...props} />;
     case "a":

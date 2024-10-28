@@ -95,7 +95,7 @@ export const ArticleEditor = ({ defaultValues, result, action, isPending }: Prop
             <ul className="tag-list">
               {fields.tagList.getFieldList().map((tagField, index) => (
                 <li key={tagField.key}>
-                  <Tag as="span" variant="filled" className={styles["tag-form"]}>
+                  <Tag component="span" variant="filled" className={styles["tag-form"]}>
                     <input type="hidden" name={tagField.name} value={tagField.value} />
                     <button onClick={() => onClickRemoveTag(index)}>
                       <i className="ion-close-round" />

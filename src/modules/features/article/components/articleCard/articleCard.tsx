@@ -28,7 +28,7 @@ export const ArticleCard = ({ article }: Props) => {
         <span>Read more...</span>
         <ul className="tag-list">
           {article.tagList.map((tag, index) => (
-            <Tag as="li" key={index} variant="outline">
+            <Tag component="li" key={index} variant="outline">
               {tag}
             </Tag>
           ))}
