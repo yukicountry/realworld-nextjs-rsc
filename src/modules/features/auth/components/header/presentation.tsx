@@ -44,7 +44,7 @@ const AuthenticatedMenus = ({ authUser }: { authUser: User }) => {
       </li>
       <li className="nav-item">
         <HeaderMenuItem href={`/profile/${authUser.username}`} segment="profile">
-          {authUser.image && <img src={authUser.image} className="user-pic" />}
+          {authUser.image && <img src={authUser.image} alt="" className="user-pic" />}
           {authUser.username}
         </HeaderMenuItem>
       </li>
