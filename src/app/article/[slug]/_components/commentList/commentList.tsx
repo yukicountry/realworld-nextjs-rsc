@@ -1,6 +1,7 @@
 import { fetchComments } from "@/modules/features/article/fetch/fetchComments";
-import { CommentCard } from "../commentCard";
 import { fetchCurrentUser } from "@/modules/features/auth/fetch/fetchCurrentUser";
+import { getSession } from "@/utils/auth/session";
+import { CommentCard } from "../commentCard";
 
 type Props = {
   slug: string;
@@ -8,7 +9,7 @@ type Props = {
 
 export const CommentList = async ({ slug }: Props) => {
   const comments = await fetchComments(slug);
-  const currentUserPromise = fetchCurrentUser();
+  const currentUserPromise = (await getSession()) ? fetchCurrentUser() : undefined;
 
   return (
     <>
