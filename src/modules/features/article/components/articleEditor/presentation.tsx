@@ -3,7 +3,7 @@ import { ErrorMessage } from "@/modules/common/components/errorMessage";
 import { Article } from "@/utils/types/models";
 import { SubmissionResult, useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
-import { KeyboardEventHandler } from "react";
+import { KeyboardEventHandler, startTransition } from "react";
 import { Tag } from "../tag";
 import styles from "./presentation.module.css";
 import { inputsSchema } from "./types";
@@ -20,6 +20,14 @@ export const ArticleEditor = ({ defaultValues, result, action, isPending }: Prop
     lastResult: result,
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: inputsSchema });
+    },
+    // onSubmit is defined to avoid resetting form after successful submission
+    // see https://github.com/edmundhung/conform/discussions/606
+    onSubmit(event, { formData }) {
+      event.preventDefault();
+      startTransition(() => {
+        action?.(formData);
+      });
     },
     defaultValue: { ...defaultValues },
     shouldValidate: "onBlur",

@@ -1,8 +1,9 @@
 import { Button } from "@/modules/common/components/button";
+import { ErrorMessage } from "@/modules/common/components/errorMessage";
 import { SubmissionResult, useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
+import { startTransition } from "react";
 import { inputsSchema } from "./types";
-import { ErrorMessage } from "@/modules/common/components/errorMessage";
 
 type Props = {
   slug?: string;
@@ -20,6 +21,14 @@ export const CommentForm = ({ slug, authorImage, result, postCommentAction, isPe
     lastResult: result,
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: inputsSchema });
+    },
+    // onSubmit is defined to avoid resetting form after successful submission
+    // see https://github.com/edmundhung/conform/discussions/606
+    onSubmit(event, { formData }) {
+      event.preventDefault();
+      startTransition(() => {
+        postCommentAction?.(formData);
+      });
     },
     shouldRevalidate: "onBlur",
   });

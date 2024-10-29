@@ -1,9 +1,10 @@
 import { Button } from "@/modules/common/components/button";
 import { ErrorMessage } from "@/modules/common/components/errorMessage";
-import { inputsSchema } from "./types";
 import { User } from "@/utils/types/models";
 import { SubmissionResult, useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
+import { startTransition } from "react";
+import { inputsSchema } from "./types";
 
 type Props = {
   user?: User;
@@ -17,6 +18,14 @@ export const SettingsForm = ({ user, action, isPending, result }: Props) => {
     lastResult: result,
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: inputsSchema });
+    },
+    // onSubmit is defined to avoid resetting form after successful submission
+    // see https://github.com/edmundhung/conform/discussions/606
+    onSubmit(event, { formData }) {
+      event.preventDefault();
+      startTransition(() => {
+        action?.(formData);
+      });
     },
     defaultValue: { ...user },
     shouldValidate: "onBlur",
