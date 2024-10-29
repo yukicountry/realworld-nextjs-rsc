@@ -1,15 +1,21 @@
 "use server";
 
 import { createApiClient } from "@/utils/api/apiClient";
+import { getSession } from "@/utils/auth/session";
+import { SubmissionResult } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { revalidateTag } from "next/cache";
+import { redirect } from "next/navigation";
 import { inputsSchema } from "./types";
-import { SubmissionResult } from "@conform-to/react";
 
 export const postCommentAction = async (
   _prevState: unknown,
   formData: FormData,
 ): Promise<SubmissionResult<string[]>> => {
+  if ((await getSession()) == null) {
+    redirect("/login");
+  }
+
   const submission = parseWithZod(formData, { schema: inputsSchema });
 
   if (submission.status !== "success") {

@@ -1,4 +1,5 @@
 import { fetchCurrentUser } from "@/modules/features/auth/fetch/fetchCurrentUser";
+import { getSession } from "@/utils/auth/session";
 import { Suspense } from "react";
 import { ArticleArea } from "./_components/articleArea";
 import { CommentForm } from "./_components/commentForm";
@@ -9,7 +10,7 @@ type Params = Promise<{
 }>;
 
 const Page = async (props: { params: Params }) => {
-  const currentUserPromise = fetchCurrentUser();
+  const currentUserPromise = (await getSession()) ? fetchCurrentUser() : undefined;
   const params = await props.params;
 
   return (

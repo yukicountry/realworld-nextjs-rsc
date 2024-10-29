@@ -1,11 +1,16 @@
 "use server";
 
 import { createApiClient } from "@/utils/api/apiClient";
+import { getSession } from "@/utils/auth/session";
 import { parseWithZod } from "@conform-to/zod";
 import { redirect } from "next/navigation";
 import { inputsSchema } from "./types";
 
 export const createArticleAction = async (_prevState: unknown, formData: FormData) => {
+  if ((await getSession()) == null) {
+    redirect("/login");
+  }
+
   const submission = parseWithZod(formData, { schema: inputsSchema });
 
   if (submission.status !== "success") {
@@ -41,6 +46,10 @@ export const createArticleAction = async (_prevState: unknown, formData: FormDat
 };
 
 export const updateArticleAction = async (_prevState: unknown, formData: FormData) => {
+  if ((await getSession()) == null) {
+    redirect("/login");
+  }
+
   const submission = parseWithZod(formData, { schema: inputsSchema });
 
   if (submission.status !== "success") {
