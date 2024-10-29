@@ -1,10 +1,10 @@
 import { Button } from "@/modules/common/components/button";
+import { fetchCurrentUser } from "@/modules/features/auth/fetch/fetchCurrentUser";
 import { FollowButton } from "@/modules/features/profile/components/followButton";
 import { fetchProfile } from "@/modules/features/profile/fetch/fetchProfile";
-import { ReactNode } from "react";
-import { showEditProfileSettingsButton } from "./_functions";
 import { getSession } from "@/utils/auth/session";
-import { fetchCurrentUser } from "@/modules/features/auth/fetch/fetchCurrentUser";
+import { ReactNode } from "react";
+import { showEditProfileSettingsButton, showFollowButton } from "./_functions";
 
 type Props = {
   children: ReactNode;
@@ -26,7 +26,7 @@ const Layout = async ({ children, params }: Props) => {
               {profile.image && <img src={profile.image} className="user-img" alt="" />}
               <h4>{profile.username}</h4>
               {profile.bio && <p>{profile.bio}</p>}
-              <FollowButton {...profile} color="secondary" />
+              {showFollowButton(profile.username, currentUser) && <FollowButton {...profile} color="secondary" />}
               {showEditProfileSettingsButton(profile.username, currentUser) && (
                 <Button component="a" href="/settings" className="action-btn" color="secondary">
                   <i className="ion-plus-round"></i> Edit Profile Settings

@@ -1,5 +1,6 @@
 import { Button, Color } from "@/modules/common/components/button";
 import styles from "./presentation.module.css";
+import clsx from "clsx";
 
 type Props = {
   username: string;
@@ -7,11 +8,12 @@ type Props = {
   following?: boolean;
   action?: () => void;
   isPending?: boolean;
+  className?: string;
 };
 
-export const FollowButton = ({ username, color, following, action, isPending }: Props) => {
+export const FollowButton = ({ username, color, following, action, isPending, className }: Props) => {
   return (
-    <form action={action} className={styles["form"]}>
+    <form action={action} className={clsx(className, styles["form"])}>
       <Button
         component="button"
         type="submit"

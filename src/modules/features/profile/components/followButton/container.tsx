@@ -9,9 +9,10 @@ type Props = {
   username: string;
   following: boolean;
   color?: Color;
+  className?: string;
 };
 
-export const FollowButton = ({ username, following, color }: Props) => {
+export const FollowButton = ({ username, following, color, className }: Props) => {
   const [state, action, isPending] = useActionState(followAction, { following });
 
   return (
@@ -21,6 +22,7 @@ export const FollowButton = ({ username, following, color }: Props) => {
       action={() => action(username)}
       isPending={isPending}
       color={color}
+      className={className}
     />
   );
 };

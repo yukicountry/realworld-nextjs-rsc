@@ -7,10 +7,10 @@ export const config = {
 
 const publicRoutes = [
   /^\/article\/[^\/]+?\/?$/, // /article/sample-slug
-  /^\/login$/,
+  /^\/login\/?$/,
   /^\/profile\/[^\/]+?\/?$/, // /profile/sample-username
   /^\/profile\/[^\/]+?\/favorites\/?$/, // /profile/sample-username/favorites
-  /^\/register$/,
+  /^\/register\/?$/,
   /^\/$/,
 ] as const;
 

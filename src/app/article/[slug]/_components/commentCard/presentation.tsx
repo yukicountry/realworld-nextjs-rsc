@@ -4,12 +4,12 @@ import styles from "./presentation.module.css";
 
 type Props = {
   comment: Comment;
-  showTrash?: boolean;
+  showDeleteCommentButton?: boolean;
   deleteCommentAction?: () => void;
   isPending?: boolean;
 };
 
-export const CommentCard = ({ comment, showTrash, deleteCommentAction }: Props) => {
+export const CommentCard = ({ comment, showDeleteCommentButton, deleteCommentAction }: Props) => {
   return (
     <div className="card">
       <div className="card-block">
@@ -24,7 +24,7 @@ export const CommentCard = ({ comment, showTrash, deleteCommentAction }: Props) 
           {comment.author.username}
         </Link>
         <span className="date-posted">{comment.createdAt.toDateString()}</span>
-        {showTrash && (
+        {showDeleteCommentButton && (
           <form action={deleteCommentAction} className={styles["form"]}>
             <button className="mod-options" type="submit">
               <i className="ion-trash-a" />

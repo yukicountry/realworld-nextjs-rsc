@@ -1,4 +1,5 @@
 import { Button } from "@/modules/common/components/button";
+import clsx from "clsx";
 import styles from "./presentation.module.css";
 
 type Props = {
@@ -23,8 +24,8 @@ export const FavoriteButton = ({ favorited, favoritesCount, action, disabled, sh
   );
 
   return (
-    <form action={action} className={styles["form"]}>
-      <Button component="button" variant={favorited ? "filled" : "outline"} disabled={disabled} className={className}>
+    <form action={action} className={clsx(styles["form"], className)}>
+      <Button component="button" variant={favorited ? "filled" : "outline"} disabled={disabled}>
         {content}
       </Button>
     </form>
