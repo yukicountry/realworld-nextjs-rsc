@@ -34,5 +34,12 @@ export const updateSettingsAction = async (_prevState: SubmissionResult<string[]
     redirect(`/profile/${user.username}`);
   }
 
-  throw new Error("api error");
+  switch (response.statusCode) {
+    case 422:
+      return submission.reply({
+        formErrors: Object.values(response.error.errors).flat(),
+      });
+    default:
+      throw new Error("api error");
+  }
 };

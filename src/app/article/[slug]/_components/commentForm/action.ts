@@ -12,8 +12,6 @@ export const postCommentAction = async (
 ): Promise<SubmissionResult<string[]>> => {
   const submission = parseWithZod(formData, { schema: inputsSchema });
 
-  console.log(submission);
-
   if (submission.status !== "success") {
     return submission.reply();
   }
@@ -42,5 +40,12 @@ export const postCommentAction = async (
     return submission.reply();
   }
 
-  throw new Error("api error");
+  switch (response.statusCode) {
+    case 422:
+      return submission.reply({
+        formErrors: Object.values(response.error.errors).flat(),
+      });
+    default:
+      throw new Error("api error");
+  }
 };

@@ -32,7 +32,16 @@ export const signInAction = async (_prevState: unknown, formData: FormData) => {
     redirect("/");
   }
 
-  return submission.reply({
-    formErrors: ["Login failed."],
-  });
+  switch (response.statusCode) {
+    case 401:
+      return submission.reply({
+        formErrors: ["Login failed. The email or password is incorrect."],
+      });
+    case 422:
+      return submission.reply({
+        formErrors: Object.values(response.error.errors).flat(),
+      });
+    default:
+      throw new Error("api error");
+  }
 };

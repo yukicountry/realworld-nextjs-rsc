@@ -9,7 +9,7 @@ export const createSession = async (token: string) => {
   cookieStore.set(SESSION_KEY, token, {
     httpOnly: true,
     secure: SECURE_COOKIE,
-    expires: new Date(Date.now() + 1000 * 60 * 60 * 24), // one day
+    expires: new Date(Date.now() + 1000 * 60 * 60), // one hour
     sameSite: "lax",
     path: "/",
   });

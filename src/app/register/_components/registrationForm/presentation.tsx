@@ -1,6 +1,6 @@
 import { Button } from "@/modules/common/components/button";
 import { ErrorMessage } from "@/modules/common/components/errorMessage";
-import { getInputProps, SubmissionResult, useForm } from "@conform-to/react";
+import { SubmissionResult, useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { inputsSchema } from "./types";
 
@@ -17,7 +17,7 @@ export const RegistrationForm = ({ result, action, isPending }: Props) => {
       return parseWithZod(formData, { schema: inputsSchema });
     },
     shouldValidate: "onBlur",
-    shouldRevalidate: "onInput",
+    shouldRevalidate: "onBlur",
   });
 
   return (

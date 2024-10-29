@@ -23,8 +23,10 @@ export const ArticleEditor = ({ defaultValues, result, action, isPending }: Prop
     },
     defaultValue: { ...defaultValues },
     shouldValidate: "onBlur",
-    shouldRevalidate: "onInput",
+    shouldRevalidate: "onBlur",
   });
+
+  const tagListErrors = Object.values(fields.tagList.allErrors).flat();
 
   const onTagFormKeyDown: KeyboardEventHandler<HTMLInputElement> = (event) => {
     switch (event.key) {
@@ -61,6 +63,7 @@ export const ArticleEditor = ({ defaultValues, result, action, isPending }: Prop
               placeholder="Article Title"
               className="form-control form-control-lg"
             />
+            <ErrorMessage messages={fields.title.errors} />
           </fieldset>
           <fieldset className="form-group">
             <input
@@ -71,6 +74,7 @@ export const ArticleEditor = ({ defaultValues, result, action, isPending }: Prop
               placeholder="What's this article about?"
               className="form-control"
             />
+            <ErrorMessage messages={fields.description.errors} />
           </fieldset>
           <fieldset className="form-group">
             <textarea
@@ -81,6 +85,7 @@ export const ArticleEditor = ({ defaultValues, result, action, isPending }: Prop
               placeholder="Write your article (in markdown)"
               className="form-control"
             />
+            <ErrorMessage messages={fields.body.errors} />
           </fieldset>
           <fieldset className="form-group">
             <input
@@ -105,6 +110,7 @@ export const ArticleEditor = ({ defaultValues, result, action, isPending }: Prop
                 </li>
               ))}
             </ul>
+            <ErrorMessage messages={tagListErrors} />
           </fieldset>
           <Button
             component="button"

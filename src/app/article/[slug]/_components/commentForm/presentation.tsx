@@ -1,7 +1,8 @@
 import { Button } from "@/modules/common/components/button";
-import { getInputProps, getTextareaProps, SubmissionResult, useForm } from "@conform-to/react";
+import { SubmissionResult, useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { inputsSchema } from "./types";
+import { ErrorMessage } from "@/modules/common/components/errorMessage";
 
 type Props = {
   slug?: string;
@@ -20,9 +21,10 @@ export const CommentForm = ({ slug, authorImage, result, postCommentAction, isPe
     onValidate({ formData }) {
       return parseWithZod(formData, { schema: inputsSchema });
     },
-    shouldValidate: "onBlur",
     shouldRevalidate: "onBlur",
   });
+
+  const errors = Object.values(form.allErrors).flat();
 
   return (
     <>
@@ -37,6 +39,7 @@ export const CommentForm = ({ slug, authorImage, result, postCommentAction, isPe
             rows={3}
             className="form-control"
           ></textarea>
+          <ErrorMessage messages={errors} />
         </div>
         <div className="card-footer">
           {authorImage && <img src={authorImage} alt="" className="comment-author-img" />}

@@ -12,28 +12,17 @@ export const createArticleAction = async (_prevState: unknown, formData: FormDat
     return submission.reply();
   }
 
+  const { slug: _slug, tag: _tag, ...article } = submission.value;
+
   const client = createApiClient({
     path: "/articles",
     method: "post",
     params: {
       body: {
-        article: submission.value,
+        article,
       },
     },
   });
-
-  // const client = createApiClient({
-  //   path: "/articles",
-  //   method: "post",
-  //   params: {
-  //     body: {
-  //       article: {
-  //         ...inputs,
-  //         tagList: inputs.tagList.map((tag) => tag.value),
-  //       },
-  //     },
-  //   },
-  // });
 
   const response = await client.sendRequest();
 
@@ -41,7 +30,14 @@ export const createArticleAction = async (_prevState: unknown, formData: FormDat
     redirect(`/article/${response.data.article.slug}`);
   }
 
-  throw new Error("api error");
+  switch (response.statusCode) {
+    case 422:
+      return submission.reply({
+        formErrors: Object.values(response.error.errors).flat(),
+      });
+    default:
+      throw new Error("api error");
+  }
 };
 
 export const updateArticleAction = async (_prevState: unknown, formData: FormData) => {
@@ -51,9 +47,9 @@ export const updateArticleAction = async (_prevState: unknown, formData: FormDat
     return submission.reply();
   }
 
-  const { slug, ...article } = submission.value;
+  const { slug, tag: _tag, ...article } = submission.value;
   if (slug == null) {
-    throw new Error("Slug is unexpectedly set to null.");
+    throw new Error("Slug is unexpectedly set to null or undefined.");
   }
 
   const client = createApiClient({
@@ -75,5 +71,12 @@ export const updateArticleAction = async (_prevState: unknown, formData: FormDat
     redirect(`/article/${response.data.article.slug}`);
   }
 
-  throw new Error("api error");
+  switch (response.statusCode) {
+    case 422:
+      return submission.reply({
+        formErrors: Object.values(response.error.errors).flat(),
+      });
+    default:
+      throw new Error("api error");
+  }
 };

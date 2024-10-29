@@ -2,7 +2,7 @@ import { Button } from "@/modules/common/components/button";
 import { ErrorMessage } from "@/modules/common/components/errorMessage";
 import { inputsSchema } from "./types";
 import { User } from "@/utils/types/models";
-import { getInputProps, getTextareaProps, SubmissionResult, useForm } from "@conform-to/react";
+import { SubmissionResult, useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 
 type Props = {
@@ -20,7 +20,7 @@ export const SettingsForm = ({ user, action, isPending, result }: Props) => {
     },
     defaultValue: { ...user },
     shouldValidate: "onBlur",
-    shouldRevalidate: "onInput",
+    shouldRevalidate: "onBlur",
   });
 
   return (
@@ -37,6 +37,7 @@ export const SettingsForm = ({ user, action, isPending, result }: Props) => {
               placeholder="URL of profile picture"
               className="form-control"
             />
+            <ErrorMessage messages={fields.image.errors} />
           </fieldset>
           <fieldset className="form-group">
             <input
@@ -47,6 +48,7 @@ export const SettingsForm = ({ user, action, isPending, result }: Props) => {
               placeholder="Your Name"
               className="form-control form-control-lg"
             />
+            <ErrorMessage messages={fields.username.errors} />
           </fieldset>
           <fieldset className="form-group">
             <textarea
@@ -57,6 +59,7 @@ export const SettingsForm = ({ user, action, isPending, result }: Props) => {
               className="form-control form-control-lg"
               rows={8}
             ></textarea>
+            <ErrorMessage messages={fields.bio.errors} />
           </fieldset>
           <fieldset className="form-group">
             <input
@@ -67,6 +70,7 @@ export const SettingsForm = ({ user, action, isPending, result }: Props) => {
               placeholder="Email"
               className="form-control form-control-lg"
             />
+            <ErrorMessage messages={fields.email.errors} />
           </fieldset>
           <fieldset className="form-group">
             <input
@@ -78,6 +82,7 @@ export const SettingsForm = ({ user, action, isPending, result }: Props) => {
               autoComplete="new-password"
               className="form-control form-control-lg"
             />
+            <ErrorMessage messages={fields.password.errors} />
           </fieldset>
           <Button
             component="button"
