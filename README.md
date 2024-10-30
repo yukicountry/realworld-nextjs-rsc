@@ -8,14 +8,15 @@ Any bug fixes or suggestions are welcome.
 
 ## Libraries and Frameworks
 
-| Name       |                            |
-| ---------- | -------------------------- |
-| TypeScript | v5.5.x                     |
-| Next.js    | v15.x                      |
-| React      | v18.x                      |
-| Conform    | form validation library    |
-| Zod        | schema validation library  |
-| unified    | markdown to html converter |
+| Name                                          |                                    |
+| --------------------------------------------- | ---------------------------------- |
+| [TypeScript](https://www.typescriptlang.org/) | v5.5.x                             |
+| [Next.js](https://nextjs.org/)                | v15.x                              |
+| [React](https://react.dev/)                   | v18.x                              |
+| [Conform](https://conform.guide/)             | form validation library            |
+| [Zod](https://zod.dev/)                       | schema validation library          |
+| [unified](https://unifiedjs.com/)             | markdown to html converter         |
+| [OpenAPI TypeScript](https://openapi-ts.dev/) | type generator from OpenAPI schema |
 
 ## Getting Started
 
@@ -24,12 +25,12 @@ Demo app is running on <https://realworld-nextjs-rsc.vercel.app/> .
 Alternatively, you can try it locally.
 
 ```bash
-// copy env
+# copy env
 cp .env.example .env.local
 
-// set API_BASE_URL variable in .env.local to your backend api endpoint
+# set API_BASE_URL variable in .env.local to your backend api endpoint
 
-// run app
+# run app
 npm run dev
 ```
 
