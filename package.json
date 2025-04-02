@@ -16,7 +16,7 @@
     "@conform-to/zod": "^1.2.2",
     "clsx": "^2.1.1",
     "ionicons": "^2.0.1",
-    "next": "^15.2.3",
+    "next": "^15.2.4",
     "react": "^18.3",
     "react-dom": "^18.3",
     "rehype-stringify": "^10.0.1",
